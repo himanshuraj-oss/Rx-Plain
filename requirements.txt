@@ -9,3 +9,5 @@ sarvamai
 icalendar
 python-dateutil
 reportlab
+scikit-learn
+pdf2image

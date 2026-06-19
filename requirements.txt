@@ -6,3 +6,6 @@ requests
 Pillow
 joblib
 sarvamai
+icalendar
+python-dateutil
+reportlab

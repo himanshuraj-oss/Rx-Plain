@@ -3797,37 +3797,15 @@ div[data-testid="stChatInput"] textarea {
     background-color: transparent !important;
     color: #F3F4F6 !important;
 }
-/* Push the + button to sit flush with the chat input */
-div[data-testid="stHorizontalBlock"] > div:first-child .stButton > button {
-    height: 52px !important;
-    width: 52px !important;
-    min-height: 52px !important;
-    border-radius: 50% !important;
-    font-size: 22px !important;
-    padding: 0 !important;
-    background: #1F2023 !important;
-    border: 1px solid #444444 !important;
-    color: #9CA3AF !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transition: all 0.2s;
-}
-div[data-testid="stHorizontalBlock"] > div:first-child .stButton > button p {
-    margin: 0 !important;
-}
-div[data-testid="stHorizontalBlock"] > div:first-child .stButton > button:hover {
-    background: rgba(75, 85, 99, 0.3) !important;
-    color: #D1D5DB !important;
-}
 </style>
 """, unsafe_allow_html=True)
 
-        plus_col, input_col = st.columns([1, 10])
+        plus_col, input_col = st.columns([2, 10])
         with plus_col:
             if st.button(
-                "+" if not st.session_state.chat_attach_open else "x",
+                "📎 Attach" if not st.session_state.chat_attach_open else "❌ Cancel",
                 key="toggle_attach_btn",
+                use_container_width=True,
                 help="Attach a medical report photo",
             ):
                 st.session_state.chat_attach_open = not st.session_state.chat_attach_open

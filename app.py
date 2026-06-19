@@ -24,6 +24,7 @@ import pickle
 import joblib
 import re
 import numpy as np
+import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -4410,9 +4411,6 @@ div[data-testid="stHorizontalBlock"] > div:first-child .stButton > button:hover 
                 all_extracted_data = []
                 
                 with st.spinner("Extracting parameters and dates..."):
-                    import json
-                    import tempfile, os
-                    import pandas as pd
                     
                     for i, file in enumerate(uploaded_trend_files):
                         img_bytes = file.read()

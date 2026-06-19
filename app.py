@@ -3469,10 +3469,8 @@ def main():
     </div>
     """, unsafe_allow_html=True)
         
-            return
-
         # VIEW: REVIEW
-        if st.session_state.view == "review":
+        elif st.session_state.view == "review":
             st.markdown(f"""
     <div style="display:flex;gap:8px;margin-bottom:24px;justify-content:center;">
     {_step_badge(1,"Upload")}
@@ -3517,19 +3515,18 @@ def main():
                     except Exception as e:
                         slot.empty()
                         st.error(f"Execution Error: {e}")
-            return
-
         # VIEW: UPLOAD
-        st.markdown(f"""
+        else:
+            st.markdown(f"""
     <div style="display:flex;gap:8px;margin-bottom:24px;justify-content:center;">
     {_step_badge(1,"Upload",True)}
     {_step_badge(2,"Verify")}
     {_step_badge(3,"Analysis")}
     </div>
     """, unsafe_allow_html=True)
-        uploaded_file = st.file_uploader("📄 Upload Prescription", type=["jpg", "jpeg", "png", "pdf"])
+            uploaded_file = st.file_uploader("📄 Upload Prescription", type=["jpg", "jpeg", "png", "pdf"])
 
-        st.markdown("""
+            st.markdown("""
     <div style="display:flex;align-items:center;gap:12px;margin:20px 0;">
     <div style="flex:1;height:1px;background:#333333;"></div>
     <div style="font-size:11px;color:#A1A1A6;font-weight:600;letter-spacing:0.05em;">OR CAPTURE</div>
@@ -3537,35 +3534,35 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-        camera_image = st.camera_input("📷 Capture Prescription")
+            camera_image = st.camera_input("📷 Capture Prescription")
 
-        st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
-        _, c_demo, _ = st.columns([1, 1.5, 1])
-        with c_demo:
-            if st.button("Launch Preloaded Demo Mode", use_container_width=True):
-                st.session_state.update(result=DEMO_DATA, ocr_text="", view="results")
-                st.rerun()
+            st.markdown("<div style='height:20px;'></div>", unsafe_allow_html=True)
+            _, c_demo, _ = st.columns([1, 1.5, 1])
+            with c_demo:
+                if st.button("Launch Preloaded Demo Mode", use_container_width=True):
+                    st.session_state.update(result=DEMO_DATA, ocr_text="", view="results")
+                    st.rerun()
 
-        # Process either uploaded file or camera image
-        file_to_process = uploaded_file or camera_image
+            # Process either uploaded file or camera image
+            file_to_process = uploaded_file or camera_image
 
-        if file_to_process:
-            suffix = Path(file_to_process.name).suffix or ".jpg"
-            with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
-                tmp.write(file_to_process.getvalue())
-                path = tmp.name
-        
-            # PRESCRIPTION MODE: OCR -> Review -> Analysis
-            slot = st.empty()
-            with slot: _loading_card(SVG_ICONS["scan"], "Parsing Document Text Matrix...", "Scanning layout architectures via high-density Vision models")
-            try:
-                txt, src = run_ocr(path)
-                st.session_state.update(ocr_text=txt, ocr_source=src, view="review")
-                os.unlink(path)
-                st.rerun()
-            except Exception as e:
-                slot.empty()
-                st.error(f"OCR Failure State: {e}")
+            if file_to_process:
+                suffix = Path(file_to_process.name).suffix or ".jpg"
+                with tempfile.NamedTemporaryFile(delete=False, suffix=suffix) as tmp:
+                    tmp.write(file_to_process.getvalue())
+                    path = tmp.name
+            
+                # PRESCRIPTION MODE: OCR -> Review -> Analysis
+                slot = st.empty()
+                with slot: _loading_card(SVG_ICONS["scan"], "Parsing Document Text Matrix...", "Scanning layout architectures via high-density Vision models")
+                try:
+                    txt, src = run_ocr(path)
+                    st.session_state.update(ocr_text=txt, ocr_source=src, view="review")
+                    os.unlink(path)
+                    st.rerun()
+                except Exception as e:
+                    slot.empty()
+                    st.error(f"OCR Failure State: {e}")
 
 
     # ══════════════════════════════════════════════════════════════════════════

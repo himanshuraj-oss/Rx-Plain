@@ -3383,7 +3383,7 @@ def main():
         
             c_left, c_right = st.columns(2)
             with c_left:
-                if st.button("Scan New Prescription", use_container_width=True):
+                if st.button("Scan New", use_container_width=True):
                     st.session_state.update(view="upload", result=None, ocr_text="", prescription_auto_saved=False)
                     st.rerun()
             with c_right:

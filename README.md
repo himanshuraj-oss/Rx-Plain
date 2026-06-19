@@ -7,6 +7,8 @@
 
 # 🧬 Healthcare AI Suite : A Next-Gen Clinical Intelligence Platform
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-rxplain.streamlit.app-success?style=for-the-badge&logo=streamlit)](https://rxplain.streamlit.app/)
+
 **🏆 Built for Hackathons. Engineered to Save Lives.**
 
 ## 🚨 The Global Healthcare Crisis (The Problem)
